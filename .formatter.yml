@@ -1,0 +1,11 @@
+use-sort:
+    sort-type: alph
+    sort-direction: asc
+
+header: |
+    /**
+     * PhpSpec Formatters
+     *
+     * @copyright Copyright (c) 2017-2019 DIGITAL WOLVES LTD (https://digitalwolves.ltd) All rights reserved.
+     * @license   http://opensource.org/licenses/BSD-3-Clause BSD-3-Clause
+     */

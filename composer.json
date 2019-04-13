@@ -1,0 +1,107 @@
+{
+    "name": "aist/phpspec-formatters",
+    "description": "PHPSpec Formatter Extension",
+    "license": "BSD-3-Clause",
+    "type": "extension",
+    "keywords": [
+        "phpspec",
+        "formatter"
+    ],
+    "minimum-stability": "dev",
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/ma-si/zend-coding-standard"
+        }
+    ],
+    "require": {
+        "php": "^7.2",
+        "phpspec/phpspec": "~3.0|~4.0|~5.0"
+    },
+    "require-dev": {
+        "mmoreram/php-formatter": "dev-master",
+        "malukenho/docheader": "dev-master",
+        "phpmd/phpmd": "dev-master",
+        "phpunit/phpunit": "^8.2@dev",
+        "roave/security-advisories": "dev-master",
+        "squizlabs/php_codesniffer": "^3.0@dev",
+        "phpstan/phpstan": "^0.11.0@dev",
+        "zendframework/zend-coding-standard": "dev-master"
+    },
+    "autoload": {
+        "psr-0": {
+            "Aist\\PhpSpec\\Formatters": "src/"
+        }
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.0.x-dev"
+        }
+    },
+    "scripts": {
+        "check-all": [
+            "@check-cs",
+            "@check-header",
+            "@analyze",
+            "@pdepend",
+            "@phpmd"
+        ],
+        "fix-all": [
+            "@fix-header",
+            "@use-sort",
+            "@fix-cs"
+        ],
+        "test-all": [
+            "@test-phpunit",
+            "@test-infection",
+            "@test-behat",
+            "@test-phpspec"
+        ],
+        "build-all": [
+            "@test-phpunit",
+            "@test-infection",
+            "@build-behat",
+            "@build-phpspec"
+        ],
+        "check-header": [
+            "docheader check config",
+            "docheader check src",
+            "docheader check test"
+        ],
+        "fix-header": [
+            "php-formatter formatter:header:fix config",
+            "php-formatter formatter:header:fix src",
+            "php-formatter formatter:header:fix spec",
+            "php-formatter formatter:header:fix test"
+        ],
+        "use-sort": [
+            "php-formatter formatter:use:sort config",
+            "php-formatter formatter:use:sort src",
+            "php-formatter formatter:use:sort test"
+        ],
+        "analyze": "phpstan analyze -l max ./src",
+        "phpmd": "phpmd src text phpmd.xml.dist",
+        "pdepend": "pdepend --summary-xml=build/logs/summary.xml --jdepend-xml=build/logs/jdepend.xml --jdepend-chart=docs/book/img/jdepend.svg --overview-pyramid=docs/book/img/pyramid.svg src",
+        "check-cs": "phpcs",
+        "fix-cs": "phpcbf",
+        "test-phpunit": "phpunit --colors=always",
+        "test-coverage": "phpunit --colors=always --coverage-clover build/logs/clover.xml",
+        "test-behat": [
+            "behat --colors --dry-run --append-snippets",
+            "behat --colors -f progress -o std"
+        ],
+        "test-phpspec": [
+            "phpspec run --ansi --format=pretty"
+        ],
+        "test-infection": "phpunit --config config/ && infection",
+        "build-behat": [
+            "behat --profile default",
+            "behat --profile roydude",
+            "behat --profile emuse"
+        ],
+        "build-phpspec": [
+            "phpspec run --format=html > ./build/logs/phpspec.html",
+            "phpspec run --format=aist.md > ./docs/book/phpspec.md"
+        ]
+    }
+}
